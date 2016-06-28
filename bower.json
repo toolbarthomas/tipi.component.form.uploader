@@ -1,0 +1,18 @@
+{
+  "name": "tipi.component.form.uploader",
+  "homepage": "https://github.com/toolbarthomas/tipi.component.form.uploader",
+  "authors": [
+    "Thomas van der Velde <contact@toolbarthomas.net>"
+  ],
+  "description": "Javascript component for styling file inputs",
+  "keywords": [
+    "toolbarthomas",
+    "modular",
+    "tipi",
+    "uploader",
+    "form",
+    "file"
+  ],
+  "license": "MIT",
+  "main": "_tipi.component.form.uploader.scss"
+}

@@ -1,0 +1,72 @@
+@mixin uploader-style(
+	$selector: null,
+	$background-color: false,
+	$background-color--focus: false,
+	$color: false,
+	$color--focus: false,
+	$border: false,
+	$border-color--focus: false,
+	$border-radius: false,
+	$box-shadow: false,
+	$box-shadow--focus: false,
+	$glyph-color: false,
+	$glyph-color--focus: false
+) {
+	.uploader {
+		&#{$selector} {
+			&.__uploader--ready {
+				@if $background-color != false {
+					background-color: $background-color;
+				}
+
+				@if $color != false {
+					color: $color;
+				}
+
+				@if $border != false {
+					border: $border;
+				}
+
+				@if $border-radius != false {
+					border-radius: $border-radius;
+				}
+
+				@if $box-shadow != false {
+					box-shadow: $box-shadow;
+				}
+
+				.uploader-glyph {
+					@if $glyph-color != false {
+						color: $glyph-color;
+						fill: $glyph-color;
+					}
+				}
+			}
+
+			&.__uploader--focus {
+				@if $background-color--focus != false {
+					background-color: $background-color--focus;
+				}
+
+				@if $color--focus != false {
+					color: $color--focus;
+				}
+
+				@if $border-color--focus != false {
+					border: $border-color--focus;
+				}
+
+				@if $box-shadow--focus != false {
+					box-shadow: $box-shadow--focus;
+				}
+
+				.uploader-glyph {
+					@if $glyph-color--focus != false {
+						color: $glyph-color--focus;
+						fill: $glyph-color--focus;
+					}
+				}
+			}
+		}
+	}
+}

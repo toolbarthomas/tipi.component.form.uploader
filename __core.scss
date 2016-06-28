@@ -1,0 +1,71 @@
+@mixin core_uploader {
+	.uploader {
+		display: block;
+
+		&.__uploader--ready {
+			position: relative;
+			display: table;
+			table-layout: fixed;
+			width: 100%;
+			height: $uploader-height;
+
+			@if $uploader-transitions == true {
+				@include transition(
+					(color $transition-normal ease-out 0s),
+					(border-color $transition-normal ease-out 0s),
+					(background $transition-normal ease-out 0s),
+					(box-shadow $transition-normal ease-out 0s)
+				);
+			}
+		}
+	}
+
+	.uploader-input {
+		.__uploader--ready & {
+			position: absolute;
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+		}
+	}
+
+	.uploader-label {
+		display: none;
+
+		.__uploader--ready & {
+			display: table-cell;
+			position: relative;
+			text-align: center;
+			color: inherit;
+			cursor: pointer;
+			margin: 0;
+			padding: 0 $uploader-gutter;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+		}
+	}
+
+	.uploader-glyph {
+		display: inline-block;
+
+		@if $uploader-transitions == true {
+			@include transition(
+				(fill $transition-normal ease-out 0s),
+				(color $transition-normal ease-out 0s)
+			);
+		}
+	}
+
+	.uploader-input {
+		.__upoader--focus & + .uploader-label,
+		&:focus + .uploader-label {
+			outline: thin dotted !important;
+			outline: 4px auto -webkit-focus-ring-color !important;
+		}
+	}
+}

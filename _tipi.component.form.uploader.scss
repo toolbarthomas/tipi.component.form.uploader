@@ -1,0 +1,6 @@
+@import "mixins/__uploader-style";
+
+@import "__config";
+@import "__core";
+
+@include core_uploader;
