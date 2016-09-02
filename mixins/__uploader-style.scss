@@ -1,15 +1,20 @@
 @mixin uploader-style(
 	$selector: null,
 	$background-color: false,
+	$background-color--hover: false,
 	$background-color--focus: false,
 	$color: false,
+	$color--hover: false,
 	$color--focus: false,
 	$border: false,
+	$border-color--hover: false,
 	$border-color--focus: false,
 	$border-radius: false,
 	$box-shadow: false,
+	$box-shadow--hover: false,
 	$box-shadow--focus: false,
 	$glyph-color: false,
+	$glyph-color--hover: false,
 	$glyph-color--focus: false
 ) {
 	.uploader {
@@ -41,29 +46,57 @@
 						fill: $glyph-color;
 					}
 				}
+
+				.no-touchevents &:hover {
+					@if $background-color--hover != false {
+						background-color: $background-color--hover;
+					}
+
+					@if $color--hover != false {
+						color: $color--hover;
+					}
+
+					@if $border-color--hover != false {
+						border-color: $border-color--hover;
+					}
+
+					@if $box-shadow--hover != false {
+						box-shadow: $box-shadow--hover;
+					}
+
+					.uploader-glyph {
+						@if $glyph-color--hover != false {
+							color: $glyph-color--hover;
+							fill: $glyph-color--hover;
+						}
+					}
+				}
 			}
 
 			&.__uploader--focus {
-				@if $background-color--focus != false {
-					background-color: $background-color--focus;
-				}
+				&,
+				.no-touchevents &  {
+					@if $background-color--focus != false {
+						background-color: $background-color--focus;
+					}
 
-				@if $color--focus != false {
-					color: $color--focus;
-				}
+					@if $color--focus != false {
+						color: $color--focus;
+					}
 
-				@if $border-color--focus != false {
-					border: $border-color--focus;
-				}
+					@if $border-color--focus != false {
+						border-color: $border-color--focus;
+					}
 
-				@if $box-shadow--focus != false {
-					box-shadow: $box-shadow--focus;
-				}
+					@if $box-shadow--focus != false {
+						box-shadow: $box-shadow--focus;
+					}
 
-				.uploader-glyph {
-					@if $glyph-color--focus != false {
-						color: $glyph-color--focus;
-						fill: $glyph-color--focus;
+					.uploader-glyph {
+						@if $glyph-color--focus != false {
+							color: $glyph-color--focus;
+							fill: $glyph-color--focus;
+						}
 					}
 				}
 			}

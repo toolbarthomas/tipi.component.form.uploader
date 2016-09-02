@@ -36,11 +36,21 @@
 		.__uploader--ready & {
 			display: table-cell;
 			position: relative;
-			text-align: center;
+			text-align: $uploader-text-align;
 			color: inherit;
 			cursor: pointer;
 			margin: 0;
 			padding: 0 $uploader-gutter;
+
+			@if $uploader-glyph == true {
+				@if $uploader-glyph-position == left {
+					padding-left: $uploader-glyph-width;
+				} @else {
+					padding-right: $uploader-glyph-width;
+				}
+			}
+
+
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
@@ -48,6 +58,24 @@
 			height: 100%;
 			vertical-align: middle;
 		}
+	}
+
+	.uploader-glyph-placeholder {
+		display: block;
+		position: absolute;
+		top: 50%;
+
+		@if $uploader-glyph-position == left {
+			left: 0;
+		} @else {
+			right: 0;
+		}
+
+		text-align: center;
+		width: $uploader-glyph-width;
+		height: $uploader-height;
+		line-height: $uploader-height;
+		margin-top: 0 - ($uploader-height / 2);
 	}
 
 	.uploader-glyph {

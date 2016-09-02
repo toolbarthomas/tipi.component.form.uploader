@@ -1,5 +1,10 @@
-$uploader-height: 							32px !default;
+$uploader-height: 							44px !default;
 $uploader-gutter:							14px !default;
+$uploader-text-align:						left !default;
+
+$uploader-glyph:							true !default;
+$uploader-glyph-width:						32px !default;
+$uploader-glyph-position:					left !default;
 
 $uploader-transitions: 						true !default;
 $uploader-transition-speed:					200ms !default;
