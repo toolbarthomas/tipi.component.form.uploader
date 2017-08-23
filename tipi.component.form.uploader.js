@@ -41,7 +41,7 @@
 			placeholder = uploader_label_name.html();
 		}
 
-		uploader.data('uploader-placeholder', placeholder);
+		uploader.attr('data-uploader-placeholder', placeholder);
 
 		return placeholder;
 	}
