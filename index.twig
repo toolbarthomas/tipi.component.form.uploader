@@ -1,22 +1,22 @@
-{
-  "template": "default",
-  "title": "Form - Uploader"
-}
+{% extends "layouts/base.twig" %}
 
+{% block content %}
 <section id="uploader" class="fluid">
 	<div class="wrapper">
 		<h1>Forms</h1>
 
 		<div class="form-group">
 			<div class="uploader">
-			 	<input type="file" name="files[]" id="uploader-input" class="uploader-input" data-uploader-multiple-name="{files} files selected" multiple/>
-			 	<label for="uploader-input" class="uploader-label">
+				<input type="file" name="files[]" id="uploader-input" class="uploader-input" data-uploader-multiple-name="{files} files selected"
+				 multiple/>
+				<label for="uploader-input" class="uploader-label">
 			 		<span class="uploader-glyph-placeholder">
 			 		 	<span class="uploader-glyph">X</span>
 			 		</span>
 			 		<span class="uploader-label-name">Select a file</span>
 			 	</label>
-			 </div>
+			</div>
 		</div>
 	</div>
 </section>
+{% endblock %}

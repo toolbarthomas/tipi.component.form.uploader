@@ -1,50 +1,117 @@
-function setUploader() {
-	var uploader = $('.uploader');
-	if(uploader.length > 0) {
-		uploader.each(function() {
-			var uploaderEach = $(this);
-			var uploaderInput = uploaderEach.find('.uploader-input');
-			var uploaderLabel = uploaderEach.find('.uploader-label');
-			var uploaderLabelName = uploaderEach.find('.uploader-label-name');
+(function (win, doc, $){
 
-			if(uploaderInput.length > 0 && uploaderLabel.length > 0 && uploaderLabelName.length > 0) {
-				var label = uploaderLabelName.html();
+	window.setUploader = function() {
+		var uploaders = $('.uploader').not('.__uploader--ready');
 
-				uploaderEach.addClass('__uploader--ready');
-				uploaderInput.on({
-					change : function(e) {
-						var fileName = '';
+		if (uploaders.length === 0) {
+			return;
+		}
 
-						if(this.files && this.files.length > 1) {
-							//Combine the files with our uploader data attribute;
-							fileName = ( this.getAttribute( 'data-uploader-multiple-name' ) || '' ).replace( '{files}', this.files.length );
-						} else if(e.target.value){
-							//Show the selected file
-							fileName = e.target.value.split( '\\' ).pop();
-						}
+		uploaders.each(function () {
+			var uploader = $(this);
+			var uploader_input = uploader.find('.uploader-input');
+			var uploader_label = uploader.find('.uploader-label');
+			var uploader_label_name = uploader.find('.uploader-label-name');
 
-						if(fileName !== '') {
-							//Set the new name on the label
-							uploaderLabelName.html(fileName);
-							uploaderEach.addClass('__uploader--queued');
-
-							//Fire a custom trigger when the input has a file
-							uploaderInput.trigger('tipi.uploader.queued');
-						} else {
-							//Reset the name of the label
-							uploaderLabelName.html(label);
-							uploaderEach.removeClass('__uploader--queued');
-						}
-					},
-					focus : function() {
-						uploaderEach.addClass('__uploader--focus');
-					},
-					blur : function() {
-						uploaderEach.removeClass('__uploader--focus');
-					}
-				});
+			if (uploader_input.length === 0 && uploader_label.length === 0 && uploader_label_name.length === 0) {
+				return;	
 			}
 
+			// Set the default placeholder
+			setUploaderPlaceholder(uploader);
+
+			setUploaderInputLogic(uploader);
+
+			uploader.addClass('__uploader--ready');
 		});
 	}
-}
+
+	function getUploaderPlaceholder(uploader) {
+		if(typeof uploader === 'undefined') {
+			return;
+		}
+
+		var uploader_label_name = uploader.find('.uploader-label-name');
+		if (uploader_label_name.length === 0) {
+			return;
+		}
+
+		var placeholder = uploader.data('uploader-placeholder');
+		if (typeof placeholder === 'undefined') {
+			placeholder = uploader_label_name.html();
+		}
+
+		uploader.data('uploader-placeholder', placeholder);
+
+		return placeholder;
+	}
+
+	function setUploaderPlaceholder(uploader) {
+		if (typeof uploader === 'undefined') {
+			return;
+		}
+
+		var uploader_label_name = uploader.find('.uploader-label-name');
+		if (uploader_label_name.length === 0) {
+			return;
+		}
+
+		var placeholder = getUploaderPlaceholder(uploader);
+		if(typeof placeholder === 'undefined') {
+			return;
+		}
+
+		uploader_label_name.html(placeholder);
+	}
+
+	function setUploaderInputLogic(uploader) {
+		if (typeof uploader === 'undefined') {
+			return;
+		}
+
+		var uploader_input = uploader.find('.uploader-input');
+		var uploader_label_name = uploader.find('.uploader-label-name');
+
+		uploader_input.on({
+			change: function (event) {
+				var file_selected = true;
+				var placeholder = getUploaderPlaceholder(uploader);
+
+				// Show a the number of queued files if we have selected multiple files
+				if (this.files && this.files.length > 1) {
+					placeholder = (this.getAttribute('data-uploader-multiple-name') || '').replace('{files}', this.files.length);
+					file_selected = true;
+				}
+				// Show the single
+				else if (event.target.value) {
+					//Show the selected file
+					placeholder = event.target.value.split('\\').pop();
+				}
+				// We have no file
+				else {
+					file_selected = false;
+				}
+
+				if (file_selected) {
+					//Set the new name on the label
+					uploader.addClass('__uploader--queued');
+
+					//Fire a custom trigger when the input has a file
+					$(document).trigger('tipi.uploader.queued');
+				} else {
+					//Reset the name of the label
+					uploader.removeClass('__uploader--queued');
+				}
+
+				uploader_label_name.html(placeholder);
+			},
+			focus: function () {
+				uploader.addClass('__uploader--focus');
+			},
+			blur: function () {
+				uploader.removeClass('__uploader--focus');
+			}
+		});
+	}
+
+})(window.jQuery(window), window.jQuery(document), window.jQuery);
