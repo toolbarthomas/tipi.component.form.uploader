@@ -14,7 +14,7 @@
 			var uploader_label_name = uploader.find('.uploader-label-name');
 
 			if (uploader_input.length === 0 && uploader_label.length === 0 && uploader_label_name.length === 0) {
-				return;	
+				return;
 			}
 
 			// Set the default placeholder
@@ -38,7 +38,7 @@
 
 		var placeholder = uploader.data('uploader-placeholder');
 		if (typeof placeholder === 'undefined') {
-			placeholder = uploader_label_name.html();
+			placeholder = uploader_label_name.text();
 		}
 
 		uploader.attr('data-uploader-placeholder', placeholder);
@@ -61,7 +61,7 @@
 			return;
 		}
 
-		uploader_label_name.html(placeholder);
+		uploader_label_name.text(placeholder);
 	}
 
 	function setUploaderInputLogic(uploader) {
@@ -103,7 +103,7 @@
 					uploader.removeClass('__uploader--queued');
 				}
 
-				uploader_label_name.html(placeholder);
+				uploader_label_name.text(placeholder);
 			},
 			focus: function () {
 				uploader.addClass('__uploader--focus');
